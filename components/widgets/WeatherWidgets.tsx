@@ -1,29 +1,37 @@
-import { AirQualityData, City, HourlyForecastData } from "@/lib/types"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card"
 import { Progress } from "../ui/progress"
 import AirPollution from "./AirPollution"
 import Compass from "../ui/compass"
 import { formatSunTimeWithAMPM } from "@/lib/dateUtils"
 
 interface WeatherWidgetsProps {
-  data: HourlyForecastData
-  airQuality: AirQualityData
-  uvIndexForToday: number
-  city: City
+  data: {
+    main: {
+      temp: number;
+      feels_like: number;
+      humidity: number;
+      pressure: number;
+    };
+    wind: {
+      speed: number;
+      deg: number;
+    };
+    rain: {
+      "1h": number;
+    };
+    visibility: number;
+  };
+  airQuality: { main: { aqi: number } };
+  uvIndexForToday: number;
+  city: {
+    name: string;
+    timezone: number;
+    sunrise: number;
+    sunset: number;
+  };
 }
 
-export default function WeatherWidgets({
-  data,
-  airQuality,
-  uvIndexForToday,
-  city,
-}: WeatherWidgetsProps) {
+export default function WeatherWidgets({ data, airQuality, uvIndexForToday, city }: WeatherWidgetsProps) {
   return (
     <>
       <AirPollution airQuality={airQuality} className="order-2 md:order-1" />
@@ -143,7 +151,7 @@ export default function WeatherWidgets({
         <CardContent>
           <p className="mb-2">
             {Math.round(uvIndexForToday)}
-            <br></br>
+            <br />
             {uvIndexForToday <= 2
               ? "Low"
               : uvIndexForToday <= 5
@@ -241,7 +249,8 @@ export default function WeatherWidgets({
         </CardHeader>
         <CardContent>
           <p>
-            {data.rain?.["1h"] || 0}mm <br></br>in the last 3h
+            {data.rain?.["1h"] || 0}mm <br />
+            in the last 3h
           </p>
         </CardContent>
         <CardFooter>
@@ -310,7 +319,7 @@ export default function WeatherWidgets({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>74&deg;</p>
+          <p>{data.main.humidity}&deg;</p>
         </CardContent>
         <CardFooter>
           <p>

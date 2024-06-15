@@ -11,12 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
-import { useSearchParams } from "next/navigation"
-import { DEFAULT_LOCATION } from "@/lib/config"
 import { useTheme } from "next-themes"
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
-const OPENWEATHERMAP_TOKEN = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY
+const MAPBOX_TOKEN = "your_mapbox_token_here"
+const OPENWEATHERMAP_TOKEN = "your_openweathermap_token_here"
 
 export default function Map() {
   const { theme } = useTheme()
@@ -28,16 +26,6 @@ export default function Map() {
         : "light"
       : theme
   }, [theme])
-
-  const searchParams = useSearchParams()
-  const lat = searchParams.get("lat")
-  const lon = searchParams.get("lon")
-
-  const [defaultLat, defaultLon] = useMemo(() => {
-    const latNumber = lat ? Number(lat) : Number(DEFAULT_LOCATION.coord.lat)
-    const lonNumber = lon ? Number(lon) : Number(DEFAULT_LOCATION.coord.lon)
-    return [latNumber, lonNumber]
-  }, [lat, lon])
 
   const weatherTiles = useMemo(() => {
     return [
@@ -58,8 +46,8 @@ export default function Map() {
   }
 
   const [viewport, setViewport] = useState({
-    latitude: lat ? Number(lat) : Number(defaultLat),
-    longitude: lon ? Number(lon) : Number(defaultLon),
+    latitude: 37.7749,
+    longitude: -122.4194,
     zoom: 7,
     pitch: 60,
     bearing: -60,
@@ -70,10 +58,10 @@ export default function Map() {
   useEffect(() => {
     setViewport((prevViewport) => ({
       ...prevViewport,
-      latitude: lat ? Number(lat) : Number(defaultLat),
-      longitude: lon ? Number(lon) : Number(defaultLon),
+      latitude: 37.7749,
+      longitude: -122.4194,
     }))
-  }, [lat, lon, defaultLat, defaultLon])
+  }, [])
 
   return (
     <Card className="order-11 col-span-2 h-[25rem] overflow-hidden overscroll-contain  p-0 md:p-0 xl:col-span-3">

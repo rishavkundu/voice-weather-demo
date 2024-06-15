@@ -1,32 +1,15 @@
 import React from "react"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card"
 import { Progress } from "../ui/progress"
-import { AirQualityData } from "@/lib/types"
-import { cn } from "@/lib/utils"
-import { ClassNameValue } from "tailwind-merge"
 
 interface AirPollutionProps {
-  airQuality: AirQualityData
-  className?: ClassNameValue
+  airQuality: { main: { aqi: number } };
+  className?: string;
 }
 
-export default function AirPollution({
-  airQuality,
-  className,
-}: AirPollutionProps) {
+export default function AirPollution({ airQuality, className }: AirPollutionProps) {
   return (
-    <Card
-      className={cn(
-        "order-2 col-span-2 flex h-48 flex-col justify-between",
-        className
-      )}
-    >
+    <Card className={className}>
       <CardHeader>
         <CardTitle>
           <i>
@@ -76,6 +59,8 @@ export default function AirPollution({
         </CardTitle>
       </CardHeader>
       <CardContent className="my-auto">
+
+
         <Progress aria-label="Air pollution" value={airQuality.main.aqi * 10} />
       </CardContent>
       <CardFooter>

@@ -1,27 +1,48 @@
-import { Card } from "@/components/ui/card"
-import { City, HourlyForecastData } from "@/lib/types"
-import Clock from "../ui/clock"
-import { convertToDate } from "@/lib/dateUtils"
-import IconComponent from "../ui/icon-component"
+import { Card } from "@/components/ui/card";
+import Clock from "../ui/clock";
+import IconComponent from "../ui/icon-component";
 
 interface CurrentWeatherProps {
-  data: HourlyForecastData
-  city: City
+  data?: any;
+  city?: any;
 }
 
 export default function CurrentWeather({ data, city }: CurrentWeatherProps) {
-  const initial = new Date()
+  const initial = new Date();
+
+  const dummyData = {
+    dt: 1620000000,
+    main: {
+      temp: 15,
+      temp_max: 18,
+      temp_min: 12,
+    },
+    weather: [
+      {
+        id: 800,
+        main: "Clear",
+      },
+    ],
+    sys: {
+      pod: "d",
+    },
+  };
+
+  const dummyCity = {
+    name: "Dummy City",
+    timezone: 0, // Assuming a numerical timezone offset, e.g., GMT offset in hours
+  };
 
   return (
     <Card className="relative flex h-fit w-full shrink-0 flex-col justify-between overflow-hidden md:h-[25rem]">
       <div className="absolute " />
       <div>
         <div className="flex justify-between text-lg font-semibold">
-          <span>{convertToDate(city.timezone, data.dt, "long")}</span>
-          <Clock initial={initial} timezone={city.timezone} />
+          <span>{new Date(dummyData.dt * 1000).toLocaleDateString()}</span>
+          <Clock initial={initial} timezone={dummyCity.timezone} />
         </div>
         <div className="text-md mt-2 flex font-bold">
-          <span>{city.name}</span>
+          <span>{dummyCity.name}</span>
           <i>
             <svg
               viewBox="0 0 24 24"
@@ -45,20 +66,20 @@ export default function CurrentWeather({ data, city }: CurrentWeatherProps) {
         </div>
       </div>
       <div className="flex justify-center py-7 text-8xl font-bold md:py-10">
-        {Math.round(data.main.temp)}&deg;
+        {Math.round(dummyData.main.temp)}&deg;
       </div>
       <div>
         <IconComponent
-          weatherCode={data.weather[0].id}
-          x={data.sys.pod}
+          weatherCode={dummyData.weather[0].id}
+          x={dummyData.sys.pod}
           className="h-9 w-9"
         />
-        <div className="font-semibold">{data.weather[0].main}</div>
+        <div className="font-semibold">{dummyData.weather[0].main}</div>
         <div className="flex gap-2 dark:text-neutral-500">
-          <span>H: {Math.round(data.main.temp_max)}&deg;</span>
-          <span>L: {Math.round(data.main.temp_min)}&deg;</span>
+          <span>H: {Math.round(dummyData.main.temp_max)}&deg;</span>
+          <span>L: {Math.round(dummyData.main.temp_min)}&deg;</span>
         </div>
       </div>
     </Card>
-  )
+  );
 }

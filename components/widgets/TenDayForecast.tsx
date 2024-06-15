@@ -1,16 +1,23 @@
-import { ForecastData, TenDayForecastData } from "@/lib/types"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
-import { convertToDate } from "@/lib/dateUtils"
-import { TemperatureRange } from "../ui/temperature-range"
 import IconComponent from "../ui/icon-component"
+import { TemperatureRange } from "../ui/temperature-range"
 import { Separator } from "../ui/separator"
 
 interface TenDayForecastProps {
-  data: TenDayForecastData
+  data?: any
 }
 
 export default function TenDayForecast({ data }: TenDayForecastProps) {
-  const temperatures = data.list.map((item: ForecastData) => item.temp)
+  const dummyData = {
+    list: Array(10).fill({
+      dt: 1620000000,
+      temp: { min: 12, max: 18 },
+      weather: [{ id: 800 }],
+    }),
+    city: { timezone: "GMT" },
+  };
+
+  const temperatures = dummyData.list.map((item: any) => item.temp)
   const minTemperature = Math.min(...temperatures.map((temp) => temp.min))
   const maxTemperature = Math.max(...temperatures.map((temp) => temp.max))
 
@@ -106,13 +113,13 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-base font-normal md:mb-1">
-          {data.list.map((item: ForecastData, i) => (
-            <div key={item.dt}>
+          {dummyData.list.map((item: any, i: number) => (
+            <div key={item.dt + i}>
               <div className="flex w-full flex-row items-center justify-between gap-2 last:mb-0">
                 <p className="min-w-[3rem] font-medium">
                   {i === 0
                     ? "Today"
-                    : convertToDate(data.city.timezone, item.dt, "short")}
+                    : new Date(item.dt * 1000).toLocaleDateString()}
                 </p>
                 <IconComponent
                   weatherCode={item.weather[0].id}
@@ -134,7 +141,7 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
                   </div>
                 </div>
               </div>
-              {i !== data.list.length - 1 && <Separator className="mt-3" />}
+              {i !== dummyData.list.length - 1 && <Separator className="mt-3" />}
             </div>
           ))}
         </CardContent>
