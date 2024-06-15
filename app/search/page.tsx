@@ -62,6 +62,12 @@ export default async function SearchPage({
       return notFound();
     }
 
+    // Ensure rain is defined with a default value if undefined
+    const weatherData = {
+      ...hourly_data.list[0],
+      rain: hourly_data.list[0].rain || { "1h": 0 }
+    };
+
     return (
       <>
         <div className="flex flex-col gap-4 md:flex-row">
@@ -71,7 +77,7 @@ export default async function SearchPage({
           </div>
           <section className="grid h-full grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
             <WeatherWidgets
-              data={hourly_data.list[0]}
+              data={weatherData}
               city={hourly_data.city}
               airQuality={air_pollution.list[0]}
               uvIndexForToday={uv_index.daily.uv_index_max[0]}
