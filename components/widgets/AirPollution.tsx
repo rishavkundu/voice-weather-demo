@@ -9,7 +9,7 @@ interface AirPollutionProps {
 
 export default function AirPollution({ airQuality, className }: AirPollutionProps) {
   return (
-    <Card className={className}>
+    <Card className={`col-span-2 h-48 flex flex-col justify-between ${className}`}>
       <CardHeader>
         <CardTitle>
           <i>
@@ -59,8 +59,6 @@ export default function AirPollution({ airQuality, className }: AirPollutionProp
         </CardTitle>
       </CardHeader>
       <CardContent className="my-auto">
-
-
         <Progress aria-label="Air pollution" value={airQuality.main.aqi * 10} />
       </CardContent>
       <CardFooter>

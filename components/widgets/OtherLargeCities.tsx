@@ -7,7 +7,8 @@ export default function OtherLargeCities() {
     { city: "New York", coord: { lat: 40.7128, lon: -74.0060 } },
     { city: "Los Angeles", coord: { lat: 34.0522, lon: -118.2437 } },
     { city: "Chicago", coord: { lat: 41.8781, lon: -87.6298 } },
-    // Add more dummy data as needed
+    { city: "Tokyo", coord: { lat: 35.6895, lon: 139.6917 } }, // Verified coordinates
+    { city: "London", coord: { lat: 51.5074, lon: -0.1278 } }, // Verified coordinates
   ];
 
   return (

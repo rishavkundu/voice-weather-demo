@@ -20,7 +20,8 @@ body[style] {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
 
-    --card: 0 0% 100%;
+    --card: 0 0% 98%;
+    /* Slightly brighter */
     --card-foreground: 0 0% 3.9%;
 
     --popover: 0 0% 100%;
@@ -52,7 +53,8 @@ body[style] {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 3.9%;
+    --card: 0 0% 6%;
+    /* Slightly brighter */
     --card-foreground: 0 0% 98%;
 
     --popover: 0 0% 3.9%;
@@ -86,6 +88,28 @@ body[style] {
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  .card {
+    @apply bg-card text-card-foreground border border-border;
+    backdrop-filter: blur(10px) brightness(1.1);
+    /* Glassmorphic effect */
+    background: rgba(255, 255, 255, 0.7);
+    /* Slight transparency */
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional shadow */
+  }
+
+  .dark .card {
+    @apply bg-card text-card-foreground border border-border;
+    backdrop-filter: blur(10px) brightness(1.1);
+    /* Glassmorphic effect */
+    background: rgba(30, 30, 30, 0.7);
+    /* Slight transparency */
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional shadow */
   }
 }
 

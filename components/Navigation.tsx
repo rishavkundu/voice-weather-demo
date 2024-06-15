@@ -2,7 +2,6 @@ import Link from "next/link"
 import { CommandDialogDemo } from "./CommandDialogDemo"
 import { ModeToggle } from "./ui/ModeToggle"
 import { Button } from "./ui/button"
-import { GitHubLogoIcon } from "@radix-ui/react-icons"
 
 export default function Navigation() {
   return (
@@ -14,13 +13,15 @@ export default function Navigation() {
         <Link
           passHref
           prefetch={false}
-          aria-label="Support project"
-          href={"https://rishavkundu.com/donate"}
+          aria-label="Learn More"
+          href={"https://rishavkundu.com/"}
           className="shrink-0"
         >
-          <Button variant={"default"} className="h-9">
-            <GitHubLogoIcon className="h-4 w-4 md:mr-1" />
-            <span className="hidden md:block">Support Project</span>
+          <Button
+            variant={"outline"}
+            className="h-9 px-4 py-2 text-sm font-medium"
+          >
+            <span className="relative z-10" style={{ opacity: 0.9 }}>Learn More</span>
           </Button>
         </Link>
       </div>
